@@ -26,7 +26,7 @@ argument-hint: "[평면도 이미지] [샘플 CAD]"
 | ezdxf, shapely, numpy, matplotlib, Pillow | import | pip 설치(무료) |
 | streamlit(앱 UI) | import | pip 설치(무료) |
 | 한글 폰트(미리보기) | `fc-list :lang=ko` | 미리보기 한글 깨짐 → 폰트 설치 |
-| DWG 변환기 | `ODAFileConverter`, LibreDWG `dwg2dxf`/`dxf2dwg` | DWG 입력은 DXF로 다시 받고, 출력은 DXF |
+| DWG 변환기 | 이 저장소의 `node tools/dwg/dwgconv.mjs`(dwg2dxf·dxf2dwg, 처음 한 번 `npm ci --ignore-scripts --prefix tools/dwg`). 그 외 `ODAFileConverter`, LibreDWG `dwg2dxf`/`dxf2dwg` | DWG 입력은 DXF로 다시 받고, 출력은 DXF |
 | 판독 방식(아래) | `which claude`, API 키 유무 | |
 | Playwright + Chromium(테스트) | `require('playwright')` 또는 Python playwright | 설치 필요 |
 

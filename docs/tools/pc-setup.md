@@ -33,15 +33,37 @@ CAD·Revit 같은 데스크톱 프로그램은 클라우드 세션에서 조작�
 
 참고: 이 설정은 MCP 제작자가 운영하는 공개 서버(mcp.gomdori.app)를 거쳐 법제처를 조회한다. 서버를 거치지 않으려면 `npx korean-law-mcp setup`으로 PC에 직접 설치한다(OC 키 필수).
 
-## 3. CAD 연결(쓰는 프로그램 하나만)
+## 3. AutoCAD 연결
 
-| 프로그램 | 명령(저장소 폴더의 터미널에서 실행) | 조건 |
+먼저 종류를 확인한다. AutoCAD 제목 표시줄이나 도움말 > 정보에 **"AutoCAD LT"**라고 나오면 LT, 아니면 정품(AutoCAD 또는 AutoCAD Architecture 등)이다.
+
+| 종류 | 연결 도구 | 방식 |
 |---|---|---|
-| AutoCAD(정품) | `npx archtmpl@latest --mcp autocad-mcp-pro` | Python 3.11+. 설치 후 `ALLOWED_PATHS`를 작업 폴더 하나로 지정 |
-| AutoCAD LT | `npx archtmpl@latest --mcp autocad-mcp` | git, uv 필요. AutoCAD에서 `lisp-code/mcp_dispatch.lsp`를 APPLOAD |
-| ZWCAD·GstarCAD | `npx archtmpl@latest --mcp cad-mcp` | `src/config.json`에서 프로그램 선택 |
+| AutoCAD(정품) | autocad-mcp-pro | Windows COM으로 실행 중인 AutoCAD를 직접 조작. 240개 이상 도구(작도·수정·실·일람표·치수·시트) |
+| AutoCAD LT 2024 이상 | autocad-mcp | AutoLISP 파일 연동으로 조작. LT 2023 이하는 AutoLISP가 없어 연결할 수 없다 |
 
-이 명령들은 설치 중에 git clone과 pip 같은 셸 명령을 실행한다. 실행 전에 `--dry-run`을 붙이면 무엇을 실행할지만 보여 준다.
+### 정품 AutoCAD
+
+1. 저장소 폴더의 터미널에서 실행: `pip install "autocad-mcp-pro[com]"`
+2. 읽고 쓸 폴더를 하나로 제한해 등록한다(예: 프로젝트 도면 폴더). 비워 두면 거의 모든 폴더에 접근할 수 있다.
+   ```
+   claude mcp add --scope user autocad -e AUTOCAD_MCP_BACKEND=auto -e "ALLOWED_PATHS=C:\Users\<사용자>\Documents\BE-CP-도면" -- autocad-mcp
+   ```
+3. AutoCAD를 켜고 도면을 연 뒤 Claude에서 "AutoCAD에 열린 도면의 레이어 목록 보여줘"로 연결을 확인한다.
+
+### AutoCAD LT 2024 이상
+
+git과 uv가 필요하다. PowerShell에서 순서대로 실행한다.
+1. `git clone https://github.com/puran-water/autocad-mcp "$env:USERPROFILE\.claude-arch\autocad-mcp"`
+2. `cd "$env:USERPROFILE\.claude-arch\autocad-mcp"; uv sync`
+3. `claude mcp add --scope user autocad-mcp -e AUTOCAD_MCP_BACKEND=auto -- "$env:USERPROFILE\.claude-arch\autocad-mcp\.venv\Scripts\python.exe" -m autocad_mcp`
+4. AutoCAD LT에서 `APPLOAD`로 `lisp-code\mcp_dispatch.lsp`(1단계 폴더 안)를 불러온다.
+
+### 클라우드 세션에서 DWG 다루기(AutoCAD 연결 없이)
+
+PC 연결 없이도 DWG 파일을 이 저장소에 올리면 처리할 수 있다.
+- `node tools/dwg/dwgconv.mjs dwg2dxf 도면.dwg` → DXF로 읽어 면적표, 창호 수량, 도면 검사
+- `node tools/dwg/dwgconv.mjs dxf2dwg 결과.dxf` → AutoCAD 2018 형식 DWG(검증 포함)
 
 ## 4. Revit(Revit을 쓰는 경우)
 
@@ -105,3 +127,5 @@ Docker Desktop을 설치·실행한 뒤 다음 명령을 실행한다.
 - `npx archtmpl@latest --mcp openstudio-mcp`
 
 설계 대안 비교용이다. 인증 계산은 ECO2로 한다.
+
+`npx archtmpl` 주의: 이 도구는 마지막에 `claude mcp add --global ...`로 등록하는데, 현재 Claude Code에는 `--global` 옵션이 없어 등록 단계가 실패할 수 있다. 실패 메시지가 나오면 출력된 명령에서 `--global`을 `--scope user`로 바꿔 다시 실행한다.

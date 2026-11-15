@@ -117,7 +117,7 @@
 
 ## 5. MCP: 업무용 PC에서 설치
 
-Revit, Rhino, 법령·HWP MCP의 Windows 설정까지 포함한 전체 절차는 `docs/tools/pc-setup.md`에 있다.
+Revit, Rhino, 법령·HWP MCP의 Windows 설정까지 포함한 전체 절차는 `docs/tools/pc-setup.md`에 있다. 담당자는 **AutoCAD**를 쓰므로 그 문서 3절만 따르면 된다. 아래 `npx archtmpl` 명령은 등록 단계에서 `--global` 옵션 때문에 실패할 수 있다(pc-setup.md 6절 주의 참고).
 
 MCP는 AutoCAD·SketchUp 같은 데스크톱 프로그램을 Claude가 직접 조작하게 하는 연결 도구다. 프로그램이 설치된 PC에서 Claude Code를 실행해야 하므로 이 클라우드 저장소에는 설치하지 않았다.
 

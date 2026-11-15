@@ -1,0 +1,10 @@
+{
+  "name": "be-cp-dwg-tools",
+  "private": true,
+  "type": "module",
+  "description": "DWG <-> DXF conversion for AutoCAD files in this repo",
+  "dependencies": {
+    "@mlightcad/libredwg-web": "0.9.0",
+    "@node-projects/acad-ts": "3.9.0"
+  }
+}

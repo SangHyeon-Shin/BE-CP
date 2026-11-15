@@ -17,6 +17,11 @@ BE&CP 사무소의 업무를 돕는 작업 공간이다. 업무 영역은 다음
 - 인증의 공식 계산은 ECO2 결과다. EnergyPlus·pvlib 등의 결과는 비교용으로만 제시한다.
 
 ## 도구
+- CAD는 **AutoCAD**를 쓴다. 원본은 DWG다.
+  - DWG 읽기: `node tools/dwg/dwgconv.mjs dwg2dxf <파일.dwg>` → DXF로 바꿔 ezdxf로 처리
+  - DWG 납품: DXF로 작업한 뒤 `dxf2dwg`로 변환(기본 AutoCAD 2018 형식, `--version 2013` 등 지정 가능). 변환기가 다시 읽어 엔티티 수를 검증한다. 최종 확인은 AutoCAD에서 한다.
+  - 원본 DWG는 덮어쓰지 않는다. 변환기는 이미 있는 파일에 쓰지 않는다.
+  - 처음 한 번 설치: `npm ci --ignore-scripts --prefix tools/dwg`
 - `.claude/skills/`, `.claude/commands/`, `.claude/agents/`: 설치한 스킬·명령·에이전트. 목록과 출처는 `docs/tools/archaiflow-tools.md`.
   - archaiflow 도구는 북미 기준으로 쓰였다. 기준값은 한국 기준표를 넣어 계산한다.
 - `/cad-draft`: 평면도 이미지 → DXF 초안. 작성 기준은 `.claude/skills/cad-draft/criteria.md`.
