@@ -35,7 +35,9 @@ CAD·Revit 같은 데스크톱 프로그램은 클라우드 세션에서 조작�
 
 ## 3. AutoCAD 연결
 
-먼저 종류를 확인한다. AutoCAD 제목 표시줄이나 도움말 > 정보에 **"AutoCAD LT"**라고 나오면 LT, 아니면 정품(AutoCAD 또는 AutoCAD Architecture 등)이다.
+업무용 PC는 **정품 AutoCAD**다(2026-11-15 확인). 아래 "정품 AutoCAD" 절차를 따른다.
+
+참고: AutoCAD 제목 표시줄이나 도움말 > 정보에 **"AutoCAD LT"**라고 나오면 LT, 아니면 정품(AutoCAD 또는 AutoCAD Architecture 등)이다.
 
 | 종류 | 연결 도구 | 방식 |
 |---|---|---|

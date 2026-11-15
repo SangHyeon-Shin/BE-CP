@@ -17,7 +17,7 @@ BE&CP 사무소의 업무를 돕는 작업 공간이다. 업무 영역은 다음
 - 인증의 공식 계산은 ECO2 결과다. EnergyPlus·pvlib 등의 결과는 비교용으로만 제시한다.
 
 ## 도구
-- CAD는 **AutoCAD**를 쓴다. 원본은 DWG다.
+- CAD는 **AutoCAD 정품**을 쓴다(LT 아님). 원본은 DWG다. PC 연결은 autocad-mcp-pro(`docs/tools/pc-setup.md` 3절 "정품 AutoCAD").
   - DWG 읽기: `node tools/dwg/dwgconv.mjs dwg2dxf <파일.dwg>` → DXF로 바꿔 ezdxf로 처리
   - DWG 납품: DXF로 작업한 뒤 `dxf2dwg`로 변환(기본 AutoCAD 2018 형식, `--version 2013` 등 지정 가능). 변환기가 다시 읽어 엔티티 수를 검증한다. 최종 확인은 AutoCAD에서 한다.
   - 원본 DWG는 덮어쓰지 않는다. 변환기는 이미 있는 파일에 쓰지 않는다.
