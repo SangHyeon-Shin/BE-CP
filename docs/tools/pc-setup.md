@@ -1,4 +1,6 @@
-# PC 설치 가이드(Windows)
+# PC 설치 가이드(Windows) — 참고용
+
+> 업무용 PC 설정의 기준은 저장소 루트의 `SETUP.md`다. 이 문서는 세부 설명과 다른 프로그램(Revit, Rhino, SketchUp, EnergyPlus) 연결을 위한 참고용이다.
 
 CAD·Revit 같은 데스크톱 프로그램은 클라우드 세션에서 조작할 수 없다. 프로그램이 설치된 PC에서 Claude를 실행해야 한다.
 

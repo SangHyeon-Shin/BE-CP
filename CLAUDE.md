@@ -7,6 +7,11 @@ BE&CP 사무소의 업무를 돕는 작업 공간이다. 업무 영역은 다음
 - 온실가스 외부사업 컨설팅
 - 대학 건축학과 겸임교수로서의 교육
 
+## 처음 사용할 때
+- 사용자가 세팅을 요청하거나, 도구·MCP가 없다는 오류가 나면 `/setup-be-cp` 스킬을 따른다. 기준 문서는 `SETUP.md`다.
+- 환경 점검: `python tools/check_setup.py`
+- PC마다 다른 설정(키, 폴더 경로)은 저장소 파일에 쓰지 않고 `--scope local`이나 `--scope user`로 등록한다.
+
 ## 작업 원칙
 - 한국어로 답한다. 단위는 SI(mm, m², W/m²K, kWh/m²·년)를 쓴다.
 - 짧게 쓰고, 문단보다 표와 목록을 쓴다.
@@ -17,7 +22,8 @@ BE&CP 사무소의 업무를 돕는 작업 공간이다. 업무 영역은 다음
 - 인증의 공식 계산은 ECO2 결과다. EnergyPlus·pvlib 등의 결과는 비교용으로만 제시한다.
 
 ## 도구
-- CAD는 **AutoCAD 정품**을 쓴다(LT 아님). 원본은 DWG다. PC 연결은 autocad-mcp-pro(`docs/tools/pc-setup.md` 3절 "정품 AutoCAD").
+- CAD는 **AutoCAD 정품**을 쓴다(LT 아님). 원본은 DWG다. PC에서는 MCP `autocad`(autocad-mcp-pro)로 실행 중인 AutoCAD를 조작한다(`SETUP.md` 3-4).
+  - AutoCAD 조작은 사용자가 연 도면에서, 요청받은 범위만 한다. 지우기·덮어쓰기 전에는 묻는다.
   - DWG 읽기: `node tools/dwg/dwgconv.mjs dwg2dxf <파일.dwg>` → DXF로 바꿔 ezdxf로 처리
   - DWG 납품: DXF로 작업한 뒤 `dxf2dwg`로 변환(기본 AutoCAD 2018 형식, `--version 2013` 등 지정 가능). 변환기가 다시 읽어 엔티티 수를 검증한다. 최종 확인은 AutoCAD에서 한다.
   - 원본 DWG는 덮어쓰지 않는다. 변환기는 이미 있는 파일에 쓰지 않는다.
@@ -27,7 +33,9 @@ BE&CP 사무소의 업무를 돕는 작업 공간이다. 업무 영역은 다음
 - `/cad-draft`: 평면도 이미지 → DXF 초안. 작성 기준은 `.claude/skills/cad-draft/criteria.md`.
 - MCP(`.mcp.json`): `kordoc`(HWP·HWPX·PDF 읽기·쓰기·양식 채우기), `korean-law`(법령·조례·판례 조회).
 - Python: ezdxf, shapely(도면), pvlib(태양광), python-hwpx, PyMuPDF.
-- PC에서 CAD·Revit을 연결하는 방법: `docs/tools/pc-setup.md`.
+- 시험용 도면: `samples/dwg/`. 도면 영상 스킬(/axono 등) 예제: `samples/dessins/`.
+- 프로젝트 폴더용 맥락 파일 견본: `templates/project/CLAUDE.md`. 바로 쓰는 프롬프트: `docs/prompts/`.
+- Revit·Rhino 등 다른 프로그램 연결: `docs/tools/pc-setup.md`.
 
 ## 항상 알릴 것
 - 법규·기준·도면 사이의 모순
