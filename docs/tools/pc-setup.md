@@ -1,6 +1,6 @@
 # PC 설치 가이드(Windows) — 참고용
 
-> 업무용 PC 설정의 기준은 저장소 루트의 `SETUP.md`다. 이 문서는 세부 설명과 다른 프로그램(Revit, Rhino, SketchUp, EnergyPlus) 연결을 위한 참고용이다.
+> 업무용 PC 설정의 기준은 저장소 루트의 `SETUP.md`다(기본 도구는 Codex). 이 문서는 세부 설명과 다른 프로그램(Revit, Rhino, SketchUp, EnergyPlus) 연결을 위한 참고용이며 Claude Code 기준으로 쓰였다. Codex에서는 `claude mcp add --scope ... <이름> -e K=V -- <명령>` 대신 `codex mcp add <이름> --env K=V -- <명령>`, HTTP 서버는 `codex mcp add <이름> --url <주소>`를 쓴다. Revit 연결(4절)은 Claude 데스크톱 앱 설정 파일 기준이므로, Codex에서는 같은 `uv run ... main.py` 명령을 `codex mcp add`로 등록한다.
 
 CAD·Revit 같은 데스크톱 프로그램은 클라우드 세션에서 조작할 수 없다. 프로그램이 설치된 PC에서 Claude를 실행해야 한다.
 

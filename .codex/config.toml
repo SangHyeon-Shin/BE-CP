@@ -1,0 +1,13 @@
+# BE&CP 저장소용 Codex 설정. Codex에서 이 프로젝트를 "신뢰(trust)"해야 읽힌다.
+# PC마다 다른 설정(AutoCAD 접근 폴더, 법령 개인 키)은 이 파일에 쓰지 말고
+# `codex mcp add`로 사용자 설정(~/.codex/config.toml)에 등록한다. SETUP.md 참고.
+
+# HWP·HWPX·PDF 읽기·쓰기·양식 채우기
+[mcp_servers.kordoc]
+command = "npx"
+args = ["-y", "-p", "kordoc@4.24.80", "kordoc-mcp"]
+startup_timeout_sec = 90
+
+# 법령·조례·행정규칙·판례 조회 (공개 서버 경유, 키 없이 공용 한도)
+[mcp_servers.korean-law]
+url = "https://mcp.gomdori.app/law"

@@ -1,12 +1,12 @@
-# BE&CP 업무 지원(Claude Code)
+# BE&CP 업무 지원(Codex · Claude Code)
 
-BE&CP 사무소의 업무를 Claude Code로 돕기 위한 저장소입니다. 업무 영역은 건축설계, 건축물에너지평가, 녹색건축 컨설팅, 교육입니다.
+BE&CP 사무소의 업무를 AI 코딩 도구로 돕기 위한 저장소입니다. 업무 영역은 건축설계, 건축물에너지평가, 녹색건축 컨설팅, 교육입니다. **ChatGPT Codex**(기본)와 **Claude Code** 둘 다에서 동작합니다.
 
-> **처음이라면:** [SETUP.md](SETUP.md)를 따르거나, 이 폴더에서 Claude Code를 열고 **`BE&CP 세팅해줘`**라고 입력하세요. 점검과 설치를 Claude가 진행합니다.
+> **처음이라면:** [SETUP.md](SETUP.md)를 따르세요. 이 폴더를 Codex로 열고 **신뢰(Trust)**를 선택한 뒤 **`$setup-be-cp`**(또는 "BE&CP 세팅해줘")라고 입력하면 점검과 설치를 AI가 진행합니다. Claude Code에서는 `/setup-be-cp`입니다.
 
 ## 할 수 있는 일
 
-Claude는 계산·서류·법규 찾기·도면 정리를 맡습니다. 최종 판단과 서명은 사람이 합니다.
+AI는 계산·서류·법규 찾기·도면 정리를 맡습니다. 최종 판단과 서명은 사람이 합니다.
 
 | 업무 | Claude가 하는 일 |
 |---|---|
@@ -27,34 +27,41 @@ Claude는 계산·서류·법규 찾기·도면 정리를 맡습니다. 최종 �
 - `인증기관 보완요청서(HWP) 읽고 답변표 만들어줘`
 - `AutoCAD에 열린 도면 레이어 정리해줘`
 
-## 주요 명령
+## 주요 스킬
 
-| 명령 | 내용 |
+Codex에서는 `$이름`, Claude Code에서는 `/이름`으로 부릅니다. 요청 내용이 맞으면 자동으로 선택되기도 합니다.
+
+| 스킬 | 내용 |
 |---|---|
-| `/setup-be-cp` | 환경 점검과 설치 |
-| `/cad-draft` | 평면도 이미지 → CAD 도면(DXF) 초안 |
-| `/condensation-check` | 단면 결로 검토 |
-| `/schedule-extractor` | PDF 창호·마감 일람표 → CSV |
-| `/climate-zone-mapper` | 지역 구분별 부위 단열 기준 점검표 |
-| `/compliance-check` | 붙여넣은 조문과 도면 대조 |
-| `/plan-check-response-builder` | 보완 요청 항목별 답변표 |
-| `/drawing-diff` | 도면 리비전 비교 |
-| `/design-critic` | 설계 크리틱(수업 피드백) |
-| `/contract-review` | 계약서 위험 조항 점검 |
+| `setup-be-cp` | 환경 점검과 설치 |
+| `cad-draft` | 평면도 이미지 → CAD 도면(DXF) 초안 |
+| `condensation-check` | 단면 결로 검토 |
+| `schedule-extractor` | PDF 창호·마감 일람표 → CSV |
+| `climate-zone-mapper` | 지역 구분별 부위 단열 기준 점검표 |
+| `compliance-check` | 붙여넣은 조문과 도면 대조 |
+| `plan-check-response-builder` | 보완 요청 항목별 답변표 |
+| `drawing-diff` | 도면 리비전 비교 |
+| `design-critic` | 설계 크리틱(수업 피드백) |
+| `contract-review` | 계약서 위험 조항 점검 |
 
-전체 목록(스킬 71, 명령 14, 에이전트 6)은 [docs/tools/archaiflow-tools.md](docs/tools/archaiflow-tools.md)에 있습니다.
+전체 목록(스킬 71 + 명령 14 = Codex 스킬 85, 검토 에이전트 6)은 [docs/tools/archaiflow-tools.md](docs/tools/archaiflow-tools.md)에 있습니다.
 
 ## 폴더 구조
 
 ```
-CLAUDE.md               Claude가 매번 읽는 업무 맥락과 규칙
-SETUP.md                설정 가이드(PC / 웹)
-.mcp.json               연결: kordoc(HWP·PDF 문서), korean-law(법령 조회)
-.claude/skills/         스킬 71개(/cad-draft, 에너지·법규·도면·서류 등)
-.claude/commands/       명령 14개
-.claude/agents/         검토 에이전트 6개
+AGENTS.md               AI가 매번 읽는 업무 맥락과 규칙(Codex·Claude 공통)
+CLAUDE.md               Claude Code용: AGENTS.md를 불러오고 Claude 전용 내용만 추가
+SETUP.md                설정 가이드(Codex / Claude Code / 웹)
+.codex/config.toml      Codex 연결: kordoc(HWP·PDF 문서), korean-law(법령 조회)
+.codex/agents/          Codex 검토 에이전트 6개            ← 생성물
+.agents/skills/         Codex 스킬 85개                    ← 생성물
+.mcp.json               Claude Code 연결(같은 두 서버)
+.claude/skills/         스킬 71개 ─┐
+.claude/commands/       명령 14개  ├ 원본. 고친 뒤 python tools/sync_codex.py
+.claude/agents/         에이전트 6개┘
+tools/sync_codex.py     원본(.claude/) → Codex용 생성물 변환
 tools/dwg/              DWG ↔ DXF 변환기(dwgconv.mjs)
-tools/check_setup.py    환경 점검
+tools/check_setup.py    환경 점검(Codex·Claude 공용)
 templates/project/      프로젝트 폴더용 CLAUDE.md 견본
 samples/                시험용 도면(dwg), 도면 영상 스킬 예제(dessins)
 docs/research/          업무 조사와 도입 계획
@@ -65,8 +72,8 @@ docs/prompts/           바로 쓰는 프롬프트
 ## 주의
 
 - AI 결과는 틀릴 수 있습니다. 숫자·치수·조문은 반드시 확인합니다.
-- 인증의 공식 계산은 ECO2입니다. Claude는 입력 준비와 검토를 맡습니다.
-- Claude는 서명·제출·메일 발송을 하지 않습니다. 원본 DWG도 덮어쓰지 않습니다.
+- 인증의 공식 계산은 ECO2입니다. AI는 입력 준비와 검토를 맡습니다.
+- AI는 서명·제출·메일 발송을 하지 않습니다. 원본 DWG도 덮어쓰지 않습니다.
 
 ## 출처
 

@@ -12,7 +12,7 @@
 | 문서 검색(RAG) | PDF → 조각 → 임베딩 → 벡터 DB → 관련 조문 → 답변. 최종 판단은 사람이 한다. |
 | 사용 태도 | 빠르지만 가끔 틀리는 동료로 대한다. 틀려도 눈에 보이는 일을 맡기고, 결과는 매번 확인한다. |
 
-프로젝트 폴더용 `CLAUDE.md` 견본은 `templates/project/CLAUDE.md`에 있다.
+프로젝트 폴더용 맥락 파일 견본은 `templates/project/AGENTS.md`에 있다. Codex는 `AGENTS.md`를 읽는다. Claude Code를 쓰는 폴더에는 같은 내용을 `CLAUDE.md`로 저장하거나, `CLAUDE.md` 첫 줄에 `@AGENTS.md`를 쓴다.
 
 ## 1. 법규 질의
 
