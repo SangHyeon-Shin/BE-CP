@@ -59,6 +59,7 @@ BE&CP 사무소의 업무를 돕는 작업 공간이다. 이 파일은 Codex와 
 - Python 라이브러리: ezdxf, shapely(도면), pvlib(태양광), python-hwpx, PyMuPDF.
 - 시험용 도면: `samples/dwg/`. 도면 영상 스킬(axono 등) 예제: `samples/dessins/`.
 - 프로젝트 폴더용 맥락 파일 견본: `templates/project/`. 바로 쓰는 프롬프트: `docs/prompts/`.
+- 시연 시나리오(효과 확인용): `docs/demo/demo-script.md`. "시연 N번 진행해줘"라고 하면 이 문서대로 한다.
 - Revit·Rhino 등 다른 프로그램 연결: `docs/tools/pc-setup.md`.
 
 ## 항상 알릴 것
