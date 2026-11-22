@@ -2,7 +2,7 @@
 
 BE&CP 사무소의 업무를 AI 코딩 도구로 돕기 위한 저장소입니다. 업무 영역은 건축설계, 건축물에너지평가, 녹색건축 컨설팅, 교육입니다. **ChatGPT Codex**(기본)와 **Claude Code** 둘 다에서 동작합니다.
 
-> **처음이라면:** [SETUP.md](SETUP.md)를 따르세요. 이 폴더를 Codex로 열고 **신뢰(Trust)**를 선택한 뒤 **`$setup-be-cp`**(또는 "BE&CP 세팅해줘")라고 입력하면 점검과 설치를 AI가 진행합니다. Claude Code에서는 `/setup-be-cp`입니다.
+> **처음이라면:** [SETUP.md](SETUP.md)를 따르세요. 비공개 저장소라 업무용 PC는 GitHub 계정 없이 읽기 전용 접근키로 받습니다(SETUP.md 3-2). 이 폴더를 Codex로 열고 **신뢰(Trust)**를 선택한 뒤 **`$setup-be-cp`**(또는 "BE&CP 세팅해줘")라고 입력하면 점검과 설치를 AI가 진행합니다. Claude Code에서는 `/setup-be-cp`입니다.
 
 ## 할 수 있는 일
 

@@ -17,7 +17,7 @@
 | 항목 | 내용 |
 |---|---|
 | ChatGPT(Codex) | Codex가 포함된 ChatGPT 요금제와 로그인. 포함 요금제는 ChatGPT 요금제 안내에서 확인한다. |
-| GitHub | GitHub 계정이 필요하다. 이 저장소는 **공개**라 누구나 받을 수 있고, 수정 권한은 소유자가 초대한 사람에게만 있다. 저장소 페이지의 Settings → Collaborators → Add people로 초대하고, 초대받은 사람이 메일에서 수락한다. |
+| GitHub | 이 저장소는 **비공개**다. 업무용 PC는 GitHub 계정 없이 **읽기 전용 접근키(배포 키)**로 받는다(3-2). 키 등록은 저장소 소유자가 한 번 한다. 수정·업로드 권한은 없다. |
 
 ## 3. Codex로 설정(Windows)
 
@@ -38,17 +38,40 @@ winget install OpenJS.NodeJS.LTS
 | **ChatGPT 데스크톱 앱**(Codex 포함), 권장 | `winget install --id 9PLM9XGG6VKS -s msstore` 또는 Microsoft Store에서 "ChatGPT" | Codex는 2026-07부터 ChatGPT 데스크톱 앱에 들어 있다. 입력창 아래 권한을 **"Ask for approval"**로 두면 Windows 샌드박스 보호를 받는다. |
 | Codex CLI(터미널) | `npm install -g @openai/codex` | 설치 후 `codex`를 실행하고 ChatGPT 계정으로 로그인 |
 
-### 3-2. 저장소 받기
+### 3-2. 저장소 받기(GitHub 계정 없이, 읽기 전용 접근키)
 
-```powershell
-cd $HOME\Documents
-git clone https://github.com/SangHyeon-Shin/BE-CP.git
-```
+저장소가 비공개라 PC마다 **접근키**를 한 번 만든다. 계정이나 비밀번호는 필요 없다. 이 키로는 내려받기만 할 수 있다.
 
-- GitHub 로그인 창이 뜨면 쓸 GitHub 계정으로 로그인한다.
-- 받은 폴더를 Codex에서 연다.
-  - 앱: `Documents\BE-CP` 폴더를 프로젝트로 연다.
-  - CLI: `cd BE-CP` 후 `codex`를 실행한다.
+1. **키 만들기(업무용 PC, PowerShell).** 암호를 물으면 아무것도 쓰지 말고 Enter를 두 번 누른다.
+   ```powershell
+   ssh-keygen -t ed25519 -C "be-cp-office-pc" -f "$env:USERPROFILE\.ssh\be-cp"
+   Get-Content "$env:USERPROFILE\.ssh\be-cp.pub"
+   ```
+   마지막 줄이 출력한 `ssh-ed25519 ...` 한 줄(**공개키**)을 저장소 소유자에게 보낸다. 공개키는 보내도 안전하다. `.pub`가 없는 파일(개인키)은 절대 보내지 않는다.
+2. **키 등록(저장소 소유자, GitHub 웹).** 저장소 → Settings → Deploy keys → Add deploy key
+   - Title: `사무소 PC`
+   - Key: 받은 공개키 한 줄
+   - **Allow write access는 체크하지 않는다**(읽기 전용)
+3. **연결 설정(업무용 PC).** `%USERPROFILE%\.ssh\config` 파일(없으면 새로 만듦)에 아래를 추가한다.
+   ```
+   Host github-be-cp
+     HostName github.com
+     User git
+     IdentityFile ~/.ssh/be-cp
+     IdentitiesOnly yes
+   ```
+4. **받기.** 처음 연결할 때 `Are you sure you want to continue connecting`이 나오면 `yes`를 입력한다.
+   ```powershell
+   cd $HOME\Documents
+   git clone git@github-be-cp:SangHyeon-Shin/BE-CP.git
+   ```
+   - 이미 받아 둔 폴더가 있으면 새로 받지 않고 주소만 바꾼다: `cd BE-CP` → `git remote set-url origin git@github-be-cp:SangHyeon-Shin/BE-CP.git`
+   - 업데이트는 `git pull`로 받는다.
+   - 저장소 파일은 PC에서 고치지 않는다. 개인 자료와 작업 결과는 `local/` 폴더에 둔다.
+
+받은 폴더를 Codex에서 연다.
+- 앱: `Documents\BE-CP` 폴더를 프로젝트로 연다.
+- CLI: `cd BE-CP` 후 `codex`를 실행한다.
 - 처음 열 때 이 폴더를 **신뢰(Trust)**할지 묻는다. **반드시 신뢰한다.** 신뢰해야 `.codex/config.toml`의 MCP(kordoc, korean-law)가 켜진다.
 
 ### 3-3. 자동 설정

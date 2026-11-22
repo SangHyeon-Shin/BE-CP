@@ -15,6 +15,17 @@ description: "BE&CP 저장소를 새 PC나 새 계정에서 처음 쓸 때 설�
 | **Codex**(ChatGPT 앱 또는 Codex CLI) | 3절 | `codex mcp add ...` → 사용자 설정 `~/.codex/config.toml` | `codex mcp list`, 대화창 `/mcp` |
 | Claude Code | 부록 B | `claude mcp add --scope local|user ...` | 대화창 `/mcp` |
 
+## 0-1. 저장소를 아직 못 받았거나 `git pull`이 실패할 때
+
+저장소는 비공개다. `SETUP.md` 3-2의 읽기 전용 접근키 절차를 따른다.
+- 키 만들기, `~/.ssh/config` 설정, `git clone`·`git remote set-url`은 이 PC에서 진행한다.
+- 키 등록은 저장소 소유자만 할 수 있다. 공개키 한 줄을 보여 주고 "저장소 소유자에게 보내 등록을 부탁하라"고 안내한 뒤 기다린다.
+- 개인키(`be-cp`, `.pub` 없는 파일)는 화면에 출력하거나 보내지 않는다.
+- `git pull`이 "diverged"나 "rejected"로 실패하면 저장소 기록이 정리된 것이다.
+  - 먼저 `git status`로 이 PC에서 고친 저장소 파일이 있는지 확인한다.
+  - 없으면 `git fetch origin` 후 `git reset --hard origin/main`으로 맞춘다. `local/` 폴더는 영향받지 않는다.
+  - 고친 파일이 있으면 그 목록을 보여 주고 사용자 확인을 받는다.
+
 ## 1. 점검
 
 `python tools/check_setup.py`를 실행한다. Windows에서 `python`이 없으면 `py`를 쓴다. 결과를 "준비됨 / 빠짐 / 해당 없음" 표로 요약한다.

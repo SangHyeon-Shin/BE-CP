@@ -121,6 +121,11 @@ try:
 except Exception as e:
     add("기본", "Codex용 생성물 동기화", False, str(e)[:60], "python tools/sync_codex.py")
 
+r = run(["git", "ls-remote", "--exit-code", "origin", "HEAD"], timeout=30)
+add("기본", "저장소 업데이트 접근(git pull)", bool(r and r[0] == 0),
+    "접근 가능" if r and r[0] == 0 else "접근 안 됨(접근키 미등록이거나 인터넷 문제)",
+    "SETUP.md 3-2: 읽기 전용 접근키", required=False)
+
 # ── AI 도구 ──────────────────────────────────────────
 r_codex = run(["codex", "--version"])
 r_claude = run(["claude", "--version"])
