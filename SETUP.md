@@ -134,10 +134,11 @@ codex mcp list
 화면을 찍어 보는 "컴퓨터 사용(computer use)" 대신, 웹페이지 구조를 글로 읽어 조작하는 **Playwright MCP**(Microsoft, Apache-2.0)를 쓴다. 스크린샷을 쓰지 않아 훨씬 빠르다.
 
 ```powershell
-codex mcp add playwright -- npx -y @playwright/mcp@0.0.86 --browser msedge
+codex mcp add playwright -- npx -y @playwright/mcp@0.0.86 --browser msedge --isolated
 ```
 
-- 브라우저는 Windows에 기본으로 있는 Edge를 쓴다. 로그인 정보는 Playwright 전용 프로필에 저장되어 다음에도 유지된다.
+- 브라우저는 Windows에 기본으로 있는 Edge를 쓴다. `--isolated`라서 로그인 기록·쿠키가 디스크에 남지 않는다. 브라우저를 닫으면 로그아웃되므로 매번 직접 로그인한다(보안을 위해 의도한 설정).
+- 비밀유지 대상 서비스는 `private-web-service` 스킬을 따른다. 서비스 이름·주소·화면 정보는 저장소가 아니라 이 PC의 `local/private/`에만 남는다.
 - **로그인은 사용자가 그 브라우저 창에서 직접 한다.** 비밀번호를 Codex 대화창에 쓰지 않는다.
 - Codex를 다시 시작한 뒤 "playwright로 <사이트 주소> 열어 줘"로 확인한다.
 

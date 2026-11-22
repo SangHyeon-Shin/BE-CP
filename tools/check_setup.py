@@ -126,6 +126,14 @@ add("기본", "저장소 업데이트 접근(git pull)", bool(r and r[0] == 0),
     "접근 가능" if r and r[0] == 0 else "접근 안 됨(접근키 미등록이거나 인터넷 문제)",
     "SETUP.md 3-2: 읽기 전용 접근키", required=False)
 
+try:
+    sc = subprocess.run([sys.executable, str(ROOT / "tools/secret_scan.py")], capture_output=True, text=True,
+                        encoding="utf-8", errors="replace", timeout=180)
+    add("기본", "유출 검사(비밀유지 이름·계정·키)", sc.returncode == 0,
+        "통과" if sc.returncode == 0 else (sc.stdout.splitlines() or ["실패"])[0], "python tools/secret_scan.py 결과를 보고 해당 줄 삭제")
+except Exception as e:
+    add("기본", "유출 검사(비밀유지 이름·계정·키)", False, str(e)[:60], "python tools/secret_scan.py")
+
 # ── AI 도구 ──────────────────────────────────────────
 r_codex = run(["codex", "--version"])
 r_claude = run(["claude", "--version"])

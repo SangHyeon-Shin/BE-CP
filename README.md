@@ -36,6 +36,7 @@ Codex에서는 `$이름`, Claude Code에서는 `/이름`으로 부릅니다. 요
 | `setup-be-cp` | 환경 점검과 설치 |
 | `cad-draft` | 평면도 이미지 → CAD 도면(DXF) 초안 |
 | `eco2` | ECO2·ECO2-OD 파일 입력값을 표로 정리·대조, 단열 대안 파일, 결과 집계 |
+| `private-web-service` | 비밀유지 대상 웹 서비스: 정보는 이 PC에만, 로그인은 직접, 저장소에는 흔적 없음 |
 | `condensation-check` | 단면 결로 검토 |
 | `schedule-extractor` | PDF 창호·마감 일람표 → CSV |
 | `climate-zone-mapper` | 지역 구분별 부위 단열 기준 점검표 |
@@ -45,7 +46,7 @@ Codex에서는 `$이름`, Claude Code에서는 `/이름`으로 부릅니다. 요
 | `design-critic` | 설계 크리틱(수업 피드백) |
 | `contract-review` | 계약서 위험 조항 점검 |
 
-전체 목록(스킬 72 + 명령 14 = Codex 스킬 86, 검토 에이전트 6)은 [docs/tools/archaiflow-tools.md](docs/tools/archaiflow-tools.md)에 있습니다.
+전체 목록(스킬 73 + 명령 14 = Codex 스킬 87, 검토 에이전트 6)은 [docs/tools/archaiflow-tools.md](docs/tools/archaiflow-tools.md)에 있습니다.
 
 ## 폴더 구조
 
@@ -55,14 +56,15 @@ CLAUDE.md               Claude Code용: AGENTS.md를 불러오고 Claude 전용 
 SETUP.md                설정 가이드(Codex / Claude Code / 웹)
 .codex/config.toml      Codex 연결: kordoc(HWP·PDF 문서), korean-law(법령 조회)
 .codex/agents/          Codex 검토 에이전트 6개            ← 생성물
-.agents/skills/         Codex 스킬 86개                    ← 생성물
+.agents/skills/         Codex 스킬 87개                    ← 생성물
 .mcp.json               Claude Code 연결(같은 두 서버)
-.claude/skills/         스킬 72개 ─┐
+.claude/skills/         스킬 73개 ─┐
 .claude/commands/       명령 14개  ├ 원본. 고친 뒤 python tools/sync_codex.py
 .claude/agents/         에이전트 6개┘
 tools/sync_codex.py     원본(.claude/) → Codex용 생성물 변환
 tools/dwg/              DWG ↔ DXF 변환기(dwgconv.mjs)
 tools/check_setup.py    환경 점검(Codex·Claude 공용)
+tools/secret_scan.py    유출 검사(비밀유지 이름은 해시로만 보관)
 templates/project/      프로젝트 폴더용 CLAUDE.md 견본
 samples/                시험용 도면(dwg), 도면 영상 스킬 예제(dessins)
 docs/research/          업무 조사와 도입 계획

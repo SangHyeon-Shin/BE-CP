@@ -5,3 +5,14 @@ local/
 # 실수로 저장소 안에 둔 로그인 세션 파일
 *storage-state*.json
 *.auth.json
+
+# 비밀 정보가 담길 수 있는 파일(실수 방지)
+.env
+.env.*
+*.pem
+*.key
+*.ppk
+id_rsa*
+id_ed25519*
+be-cp
+be-cp.pub
