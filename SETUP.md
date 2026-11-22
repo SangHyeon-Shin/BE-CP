@@ -65,11 +65,13 @@ $setup-be-cp
 
 ```powershell
 python -m pip install matplotlib numpy Pillow ezdxf shapely pvlib python-hwpx PyMuPDF
+python -m pip install "ECO2[dataframe,edit] @ git+https://github.com/beskep/eco2@97049bfa8e629c5e1c6ba117eecf05ce33b44f4c"
 npm ci --ignore-scripts --prefix tools/dwg
 codex mcp list
 ```
 
-마지막 줄에 `kordoc`과 `korean-law`가 보이면 된다.
+- 둘째 줄은 ECO2·ECO2-OD 파일 도구(beskep/ECO2, MIT)다. 검토한 버전으로 고정해 설치하며 **Python 3.12 이상**이 필요하다.
+- 마지막 줄에 `kordoc`과 `korean-law`가 보이면 된다.
 
 법령 조회 개인 키(선택):
 - 키 없이도 공용 한도로 동작한다.
@@ -104,7 +106,19 @@ codex mcp list
    AutoCAD에 열린 도면의 레이어 목록 보여줘
    ```
 
-### 3-5. 최종 점검
+### 3-5. 웹 서비스 연결(선택)
+
+화면을 찍어 보는 "컴퓨터 사용(computer use)" 대신, 웹페이지 구조를 글로 읽어 조작하는 **Playwright MCP**(Microsoft, Apache-2.0)를 쓴다. 스크린샷을 쓰지 않아 훨씬 빠르다.
+
+```powershell
+codex mcp add playwright -- npx -y @playwright/mcp@0.0.86 --browser msedge
+```
+
+- 브라우저는 Windows에 기본으로 있는 Edge를 쓴다. 로그인 정보는 Playwright 전용 프로필에 저장되어 다음에도 유지된다.
+- **로그인은 사용자가 그 브라우저 창에서 직접 한다.** 비밀번호를 Codex 대화창에 쓰지 않는다.
+- Codex를 다시 시작한 뒤 "playwright로 <사이트 주소> 열어 줘"로 확인한다.
+
+### 3-6. 최종 점검
 
 ```powershell
 python tools/check_setup.py

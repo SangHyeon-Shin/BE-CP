@@ -41,7 +41,7 @@ BE&CP 사무소의 업무를 돕는 작업 공간이다. 이 파일은 Codex와 
 ### 스킬·명령·에이전트
 | 도구 | Codex | Claude Code |
 |---|---|---|
-| 스킬 85개(명령 14개 포함) | `.agents/skills/` — `$이름`으로 호출, 요청이 맞으면 자동 선택 | `.claude/skills/`, `.claude/commands/` — `/이름` |
+| 스킬 86개(명령 14개 포함) | `.agents/skills/` — `$이름`으로 호출, 요청이 맞으면 자동 선택 | `.claude/skills/`, `.claude/commands/` — `/이름` |
 | 검토 에이전트 6개 | `.codex/agents/*.toml` | `.claude/agents/` |
 | MCP(kordoc, korean-law) | `.codex/config.toml`(프로젝트를 신뢰해야 로드) | `.mcp.json` |
 
@@ -50,10 +50,19 @@ BE&CP 사무소의 업무를 돕는 작업 공간이다. 이 파일은 Codex와 
 - 스킬 목록과 출처: `docs/tools/archaiflow-tools.md`. archaiflow 도구는 북미 기준으로 쓰였으므로 기준값은 한국 기준표를 넣어 계산한다.
 - `cad-draft`: 평면도 이미지 → DXF 초안. 작성 기준은 `.claude/skills/cad-draft/criteria.md`.
 
+### ECO2·ECO2-OD
+- `eco2` 스킬을 따른다. 입력값 표: `python tools/eco2/eco2_table.py show <파일>`. ECO2-OD(.ECL2)는 바로 읽고, ECO2(.eco 등)는 eco2 패키지(beskep/ECO2)가 필요하다.
+- 원본 ECO2 파일은 덮어쓰지 않는다. 대안 파일(U값·SHGC 변경)은 비교용이며 인증 제출에 쓰지 않는다.
+- ECO2 계산 자체는 ECO2 프로그램에서만 한다. 이 도구들은 계산 엔진이 아니다.
+
 ### MCP
 - `kordoc`: HWP·HWPX·PDF 읽기·쓰기·양식 채우기
 - `korean-law`: 법령·조례·판례 조회
 - `autocad`: PC에서만, 사용자 설정에 등록
+- `playwright`(선택, PC): 웹 서비스를 페이지 구조로 읽어 조작한다. 스크린샷 기반 컴퓨터 사용보다 우선한다(`SETUP.md` 3-5).
+  - 로그인은 사용자가 직접 한다. 비밀번호를 묻거나 입력하지 않는다.
+  - 저장·제출·결제·삭제 버튼은 누르기 전에 무엇을 누르는지 말하고 확인을 받는다.
+  - 같은 화면 흐름을 반복하면 Playwright 스크립트로 만들어 재사용할지 제안한다.
 
 ### 기타
 - Python 라이브러리: ezdxf, shapely(도면), pvlib(태양광), python-hwpx, PyMuPDF.
@@ -65,6 +74,10 @@ BE&CP 사무소의 업무를 돕는 작업 공간이다. 이 파일은 Codex와 
 ## 항상 알릴 것
 - 법규·기준·도면 사이의 모순
 - 확실하지 않은 내용. 추측하지 말고 모른다고 쓴다.
+
+## 공개 저장소 주의
+- 이 저장소는 GitHub에 **공개**돼 있다. 고객 도면·서류, 프로젝트 값, 시연 결과, 웹 서비스 화면 탐색 기록, 로그인 세션 파일은 `local/` 폴더(`.gitignore`로 제외)에만 두고 커밋하지 않는다.
+- 커밋 전에 새 파일에 고객·프로젝트 정보가 없는지 확인한다.
 
 ## 하지 말 것
 - CAD·Revit 모델이나 원본 도면을 묻지 않고 수정하기

@@ -31,6 +31,7 @@ ROOT = Path(__file__).resolve().parent.parent
 WIN = os.name == "nt"
 LAW_URL = "https://mcp.gomdori.app/law"
 PIP_PKGS = "matplotlib numpy Pillow ezdxf shapely pvlib python-hwpx PyMuPDF"
+ECO2_PKG = "ECO2[dataframe,edit] @ git+https://github.com/beskep/eco2@97049bfa8e629c5e1c6ba117eecf05ce33b44f4c"
 CODEX_HOME = Path(os.environ.get("CODEX_HOME") or Path.home() / ".codex")
 
 rows: list[tuple[str, str, str, str, str]] = []  # 구분, 항목, 상태, 내용, 해결
@@ -78,7 +79,7 @@ def same_path(a: str, b: Path) -> bool:
 
 # ── 기본 ─────────────────────────────────────────────
 v = sys.version_info
-need = (3, 11) if WIN else (3, 10)
+need = (3, 12)  # eco2 패키지(beskep/ECO2)가 3.12 이상 필요
 add("기본", "Python", v >= need, f"{v.major}.{v.minor}.{v.micro}",
     "winget install Python.Python.3.12" if WIN else "Python 3.10 이상 설치")
 
@@ -88,6 +89,10 @@ missing = [k for k, m in mods.items() if importlib.util.find_spec(m) is None
            and not (m == "pymupdf" and importlib.util.find_spec("fitz"))]
 add("기본", "Python 라이브러리", not missing, "모두 있음" if not missing else "없음: " + ", ".join(missing),
     f"python -m pip install {PIP_PKGS}")
+
+eco2_ok = importlib.util.find_spec("eco2") is not None and importlib.util.find_spec("polars") is not None
+add("기본", "ECO2 파일 도구(eco2)", eco2_ok, "설치됨" if eco2_ok else "없음(.ECL2 읽기는 없어도 됨)",
+    f'python -m pip install "{ECO2_PKG}"', required=False)
 
 r = run(["node", "--version"])
 node_ok = bool(r and r[0] == 0 and int(r[1].strip().lstrip("v").split(".")[0]) >= 18)
